@@ -1,10 +1,11 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Button } from '../components/ui/Button';
-import { Input } from '../components/ui/Input';
-import { GlassNavbar } from '../components/layout/GlassNavbar';
-import { useAppStore } from '../store/useAppStore';
+import { useState } from "react";
+import { useAppStore } from "../store/useAppStore";
+import { useNavigate } from "react-router-dom";
+import { GlassNavbar } from "../layout/GlassNavbar";
+import { motion } from "framer-motion";
+import { Input } from "../ui/Input";
+import { Button } from "../ui/Button"; 
+import { Link } from "react-router-dom";
 
 
 export function SignUp() {
@@ -75,6 +76,7 @@ export function SignUp() {
                     </div>
                 </div>
             </motion.div>
+
         </div>
     );
 }
