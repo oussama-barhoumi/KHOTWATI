@@ -1,5 +1,5 @@
-import {motion , AnimatePresence} from "framer-motion"
-import { useRef , useRef, useEffect, useState } from "react";
+import { motion, AnimatePresence } from 'motion/react'
+import { useRef, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { IconMoon,IconSun } from "../constant/icon/Icon";
 import { useAppStore }  from "../store/UseAppStore"

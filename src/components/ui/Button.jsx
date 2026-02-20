@@ -1,5 +1,5 @@
-import { motion } from 'framer-motion';
-import { IconSpinner } from '../icons';
+import { motion } from 'motion/react';
+import { IconSpinner } from '../../constant/icon/Icon';
 
 const variants = {
   tap: { scale: 0.97 },

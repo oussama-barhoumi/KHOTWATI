@@ -1,5 +1,5 @@
 import { GlassNavbar } from "../layout/GlassNavbar"
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { Button } from '../components/ui/Button'
 import { IconTarget, IconHandshake, IconToken } from '../constant/icon/Icon';
 import { Card } from '../components/ui/Card';
