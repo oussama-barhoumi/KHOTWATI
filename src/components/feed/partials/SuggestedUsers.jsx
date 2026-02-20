@@ -1,9 +1,9 @@
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { Card } from '../../../components/ui/Card';
 import { Button } from '../../../components/ui/Button';
-import { IconClose } from '../../../components/icons';
+import { IconClose } from '../../../constant/icon/Icon';
 import { MOCK_USERS } from '../../../data/seedData';
-import { useAppStore } from '../../../store/useAppStore';
+import { useAppStore } from '../../../store/UseAppStore';
 
 export function SuggestedUsers() {
   const suggestedUsersVisible = useAppStore((s) => s.suggestedUsersVisible ?? true);

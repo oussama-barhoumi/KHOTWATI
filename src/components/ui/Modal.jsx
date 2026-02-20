@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'motion/react';
 import { IconClose } from '../../constant/icon/Icon';
 
 export function Modal({ isOpen, onClose, title, children }) {

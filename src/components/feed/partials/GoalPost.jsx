@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'motion/react';
 import { Card } from '../../../components/ui/Card';
 import { Button } from '../../../components/ui/Button';
 import { Input } from '../../../components/ui/Input';
-import { IconHeart, IconComment, IconCheck, IconToken, IconPencil, IconTrash } from '../../../components/icons';
-import { calculateTokens, calculateVerificationPercentage } from '../../../utils/tokenLogic';
+import { IconHeart, IconComment, IconCheck, IconToken, IconPencil, IconTrash } from '../../../constant/icon/Icon';
+import { calculateTokens, calculateVerificationPercentage } from '../../../utils/Token';
 import { MOCK_USERS } from '../../../data/seedData';
-import { useDataStore } from '../../../store/useDataStore';
-import { useAppStore } from '../../../store/useAppStore';
+import { useDataStore } from '../../../store/UseDataStore';
+import { useAppStore } from '../../../store/UseAppStore';
 
 export function GoalPost({ goal }) {
   const [showComments, setShowComments] = useState(false);

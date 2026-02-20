@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { IconFeed, IconUsers, IconChat, IconUser } from '../icons';
+import { IconFeed, IconUsers, IconChat, IconUser } from '../constant/icon/Icon';
 
 const navItems = [
   { path: '/feed', Icon: IconFeed, label: 'Feed' },

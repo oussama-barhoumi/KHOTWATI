@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'motion/react';
 import { Button } from '../../../components/ui/Button';
 import { Input } from '../../../components/ui/Input';
-import { IconPlus } from '../../../components/icons';
+import { IconPlus } from '../../../constant/icon/Icon';
 
 export function CreateGoal({ onGoalCreated }) {
   const [isOpen, setIsOpen] = useState(false);
