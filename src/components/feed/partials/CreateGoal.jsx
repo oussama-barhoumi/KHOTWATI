@@ -1,0 +1,90 @@
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Button } from '../../../components/ui/Button';
+import { Input } from '../../../components/ui/Input';
+import { IconPlus } from '../../../components/icons';
+
+export function CreateGoal({ onGoalCreated }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [progress, setProgress] = useState(0);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!title.trim()) return;
+    onGoalCreated?.({ title, description, progress: progress || 0 });
+    setTitle('');
+    setDescription('');
+    setProgress(0);
+    setIsOpen(false);
+  };
+
+  return (
+    <>
+      <motion.button
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
+        onClick={() => setIsOpen(true)}
+        className="w-full mb-6 p-6 rounded-xl border-2 border-dashed border-accent/40 dark:border-accent/30 bg-white/30 dark:bg-white/5 hover:bg-white/50 dark:hover:bg-white/10 transition-colors text-accent flex items-center justify-center gap-2"
+      >
+        <IconPlus className="w-6 h-6" />
+        <span className="font-medium">Create a goal</span>
+      </motion.button>
+
+      <AnimatePresence>
+        {isOpen && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black/40 backdrop-blur-sm z-100"
+              onClick={() => setIsOpen(false)}
+            />
+            <div className="fixed inset-0 flex items-center justify-center p-4 z-100 pointer-events-none">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                className="pointer-events-auto w-full max-w-md bg-white/80 dark:bg-charcoal/95 backdrop-blur-xl rounded-[32px] border border-white/25 dark:border-white/10 shadow-2xl p-6"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <h2 className="text-xl font-semibold text-charcoal dark:text-white mb-4">New goal</h2>
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <Input label="Title" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="e.g. Run 5K every week" />
+                  <div>
+                    <label className="block text-sm font-medium text-charcoal dark:text-beige-200 mb-2">Description</label>
+                    <textarea
+                      value={description}
+                      onChange={(e) => setDescription(e.target.value)}
+                      placeholder="Describe your goal..."
+                      rows={3}
+                      className="w-full rounded-[20px] border border-beige-200 dark:border-white/10 bg-white/80 dark:bg-white/5 px-4 py-3 text-charcoal dark:text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-accent/50"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-charcoal dark:text-beige-200 mb-2">Progress %</label>
+                    <input
+                      type="range"
+                      min="0"
+                      max="100"
+                      value={progress}
+                      onChange={(e) => setProgress(Number(e.target.value))}
+                      className="w-full h-2 rounded-full appearance-none bg-white/50 dark:bg-white/10 accent-accent"
+                    />
+                    <span className="text-sm text-accent">{progress}%</span>
+                  </div>
+                  <div className="flex gap-2 pt-2">
+                    <Button type="button" variant="ghost" className="flex-1" onClick={() => setIsOpen(false)}>Cancel</Button>
+                    <Button type="submit" className="flex-1">Create</Button>
+                  </div>
+                </form>
+              </motion.div>
+            </div>
+          </>
+        )}
+      </AnimatePresence>
+    </>
+  );
+}
