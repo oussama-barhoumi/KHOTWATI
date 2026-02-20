@@ -130,7 +130,7 @@ export const useDataStore = create(
               commentList: Array.isArray(g.commentList) ? g.commentList : [],
             }))
           : current.goals;
-        const groups = Array.isArray(p.groups) ? p.groups : current.groups;
+        const groups = Array.isArray(p.groups) && p.groups.length > 0 ? p.groups : (Array.isArray(current.groups) && current.groups.length > 0 ? current.groups : MOCK_GROUPS);
         return {
           ...current,
           goals,

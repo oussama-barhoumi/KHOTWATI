@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { GlassNavbar } from '../components/layout/GlassNavbar';
-import { IconSunrise, IconDumbbell, IconCode, IconMeditate } from '../components/icons';
-import { FloatingSidebar } from '../components/layout/FloatingSidebar';
+import { motion } from 'motion/react';
+import { GlassNavbar } from '../layout/GlassNavbar';
+import { IconSunrise, IconDumbbell, IconCode, IconMeditate } from '../constant/icon/Icon';
+import { FloatingSidebar } from '../layout/FloatingSidebar';
 import { Card } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
-import { useDataStore } from '../store/useDataStore';
+import { useDataStore } from '../store/UseDataStore';
 
 const ICON_KEYS = ['sunrise', 'dumbbell', 'code', 'meditate'];
 
@@ -115,5 +115,5 @@ export function Groups() {
         </div>
         )}
     </div>
-);
+    );
 }

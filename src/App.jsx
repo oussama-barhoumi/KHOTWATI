@@ -6,6 +6,7 @@ import { useEffect } from 'react'
 import { Login } from './pages/Login'
 import { SignUp } from './pages/SignUp'
 import { Feed } from './pages/Feed'
+import { Groups } from './pages/Groups'
 
 export const App = () => {
 
@@ -22,6 +23,7 @@ export const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/feed" element={<Feed />} />
+        <Route path="/groups" element={<Groups />} />
       </Routes>
     </AnimatePresence>
   )
