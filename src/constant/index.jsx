@@ -1,1 +1,0 @@
-import icon from "./icon/Icon"
