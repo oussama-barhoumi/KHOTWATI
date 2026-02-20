@@ -1,11 +1,10 @@
 import { useState } from "react";
-import { useAppStore } from "../store/useAppStore";
-import { useNavigate } from "react-router-dom";
+import { useAppStore } from "../store/UseAppStore";
+import { useNavigate, Link } from "react-router-dom";
 import { GlassNavbar } from "../layout/GlassNavbar";
-import { motion } from "framer-motion";
-import { Input } from "../ui/Input";
-import { Button } from "../ui/Button"; 
-import { Link } from "react-router-dom";
+import { motion } from "motion/react";
+import { Input } from "../components/ui/Input";
+import { Button } from "../components/ui/Button";
 
 
 export function SignUp() {
