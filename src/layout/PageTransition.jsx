@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 
 const variants = {
   initial: { opacity: 0, y: 8 },
