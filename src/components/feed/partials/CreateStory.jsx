@@ -5,11 +5,13 @@ import { Input } from '../../../components/ui/Input';
 import { IconPlus } from '../../../constant/icon/Icon';
 import { useAppStore } from '../../../store/UseAppStore';
 import { useDataStore } from '../../../store/UseDataStore';
+import { FREE_STORY_MUSIC } from '../../../data/seedData';
 
 export function CreateStory({ onStoryCreated }) {
   const [isOpen, setIsOpen] = useState(false);
   const [imageUrl, setImageUrl] = useState('');
   const [preview, setPreview] = useState(null);
+  const [musicId, setMusicId] = useState('');
   const fileInputRef = useRef(null);
   const user = useAppStore((s) => s.user) || { id: '1', name: 'You', username: 'you', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=user' };
   const addStory = useDataStore((s) => s.addStory);
@@ -35,23 +37,27 @@ export function CreateStory({ onStoryCreated }) {
     e.preventDefault();
     const src = preview || imageUrl.trim();
     if (!src) return;
+    const music = musicId ? FREE_STORY_MUSIC.find((m) => m.id === musicId) : null;
     const story = {
       userId: user.id,
       userName: user.name,
       userAvatar: user.avatar,
       userUsername: user.username,
       imageUrl: src,
+      musicUrl: music?.url || null,
     };
     addStory(story);
     onStoryCreated?.(story);
     setImageUrl('');
     setPreview(null);
+    setMusicId('');
     setIsOpen(false);
   };
 
   const reset = () => {
     setImageUrl('');
     setPreview(null);
+    setMusicId('');
     setIsOpen(false);
     fileInputRef.current && (fileInputRef.current.value = '');
   };
@@ -120,6 +126,19 @@ export function CreateStory({ onStoryCreated }) {
                     onChange={handleUrlChange}
                     placeholder="https://example.com/image.jpg"
                   />
+                  <div>
+                    <label className="block text-sm font-medium text-charcoal dark:text-beige-200 mb-2">Free background music</label>
+                    <select
+                      value={musicId}
+                      onChange={(e) => setMusicId(e.target.value)}
+                      className="w-full rounded-[20px] border border-beige-200 dark:border-white/10 bg-white/80 dark:bg-white/5 px-4 py-3 text-sm text-charcoal dark:text-white focus:outline-none focus:ring-2 focus:ring-accent/50"
+                    >
+                      <option value="">None</option>
+                      {FREE_STORY_MUSIC.map((m) => (
+                        <option key={m.id} value={m.id}>{m.label}</option>
+                      ))}
+                    </select>
+                  </div>
                   <div className="flex gap-2 pt-2">
                     <Button type="button" variant="ghost" className="flex-1" onClick={reset}>
                       Cancel

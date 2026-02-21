@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import { HiSpeakerWave, HiSpeakerXMark } from 'react-icons/hi2';
 import { MOCK_USERS } from '../../../data/seedData';
 import { CreateStory } from './CreateStory';
 import { useAppStore } from '../../../store/UseAppStore';
@@ -10,6 +11,29 @@ export function Stories() {
   const user = useAppStore((s) => s.user);
   const stories = useDataStore((s) => s.stories);
   const [viewingStory, setViewingStory] = useState(null);
+  const [muted, setMuted] = useState(true);
+  const audioRef = useRef(null);
+
+  useEffect(() => {
+    if (!viewingStory?.musicUrl || !audioRef.current) return;
+    const audio = audioRef.current;
+    audio.src = viewingStory.musicUrl;
+    audio.muted = true;
+    audio.volume = 0.5;
+    audio.play().catch(() => {});
+    return () => { audio.pause(); audio.src = ''; };
+  }, [viewingStory?.id, viewingStory?.musicUrl]);
+
+  const handleMuteToggle = () => {
+    if (!audioRef.current) return;
+    const nextMuted = !muted;
+    audioRef.current.muted = nextMuted;
+    if (!nextMuted) {
+      audioRef.current.volume = 0.5;
+      audioRef.current.play().catch(() => {});
+    }
+    setMuted(nextMuted);
+  };
 
   const usersWithStories = [];
   const seen = new Set();
@@ -89,6 +113,7 @@ export function Stories() {
                 className="pointer-events-auto w-full max-w-sm aspect-[9/16] max-h-[85vh] rounded-2xl overflow-hidden bg-black relative"
                 onClick={(e) => e.stopPropagation()}
               >
+                {viewingStory.musicUrl && <audio ref={audioRef} loop preload="auto" playsInline />}
                 <button
                   onClick={() => setViewingStory(null)}
                   className="absolute top-3 right-3 z-10 w-10 h-10 rounded-full bg-black/50 flex items-center justify-center text-white hover:bg-black/70"
@@ -96,6 +121,21 @@ export function Stories() {
                 >
                   <IconClose className="w-5 h-5" />
                 </button>
+                {viewingStory.musicUrl && (
+                  <button
+                    onClick={handleMuteToggle}
+                    className="absolute top-3 right-14 z-10 w-10 h-10 rounded-full bg-black/50 flex items-center justify-center text-white hover:bg-black/70 group/btn"
+                    aria-label={muted ? 'Tap to unmute' : 'Mute'}
+                    title={muted ? 'Tap to unmute' : 'Mute'}
+                  >
+                    {muted ? <HiSpeakerXMark className="w-5 h-5" /> : <HiSpeakerWave className="w-5 h-5" />}
+                    {muted && (
+                      <span className="absolute -bottom-6 right-0 text-[10px] text-white/90 whitespace-nowrap bg-black/60 px-2 py-0.5 rounded opacity-0 group-hover/btn:opacity-100 transition-opacity">
+                        Tap to unmute
+                      </span>
+                    )}
+                  </button>
+                )}
                 <div className="absolute top-3 left-3 z-10 flex items-center gap-2">
                   <img
                     src={viewingStory.userAvatar}

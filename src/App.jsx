@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router-dom'
 import { AnimatePresence } from 'motion/react'
+import { GoalReminderBanner } from './components/GoalReminderBanner'
 import { Home } from './pages/Home'
 import { useAppStore } from './store/UseAppStore'
 import { useEffect } from 'react'
@@ -19,6 +20,8 @@ export const App = () => {
   }, [theme]);
 
   return (
+    <>
+    <GoalReminderBanner />
     <AnimatePresence mode="wait">
       <Routes>
         <Route path="/" element={<Home />} />
@@ -30,6 +33,7 @@ export const App = () => {
         <Route path="/chat" element={<Chat />} />
       </Routes>
     </AnimatePresence>
+    </>
   )
 }
 

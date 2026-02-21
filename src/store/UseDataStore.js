@@ -36,7 +36,13 @@ export const useDataStore = create(
       goals: INITIAL_GOALS,
       goalEngagement: {},
       groups: MOCK_GROUPS,
+      stories: [],
       chatMessages: { ai: defaultAiMessages, '1': defaultChat1Messages },
+
+      addStory: (story) =>
+        set((state) => ({
+          stories: [{ ...story, id: 's' + Date.now(), createdAt: new Date().toISOString() }, ...state.stories],
+        })),
 
       addGoal: (goal) =>
         set((state) => ({
@@ -118,7 +124,7 @@ export const useDataStore = create(
     }),
     {
       name: 'khotwa-data',
-      partialize: (s) => ({ goals: s.goals, goalEngagement: s.goalEngagement, groups: s.groups, chatMessages: s.chatMessages }),
+      partialize: (s) => ({ goals: s.goals, goalEngagement: s.goalEngagement, groups: s.groups, stories: s.stories, chatMessages: s.chatMessages }),
       merge: (persisted, current) => {
         const p = persisted || {};
         const goals = Array.isArray(p.goals)
@@ -136,6 +142,7 @@ export const useDataStore = create(
           goals,
           goalEngagement: p.goalEngagement && typeof p.goalEngagement === 'object' ? p.goalEngagement : current.goalEngagement,
           groups,
+          stories: Array.isArray(p.stories) ? p.stories : current.stories,
           chatMessages: ensureValidChatMessages(p.chatMessages),
         };
       },
