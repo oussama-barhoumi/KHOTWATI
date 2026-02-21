@@ -9,6 +9,7 @@ import { Feed } from './pages/Feed'
 import { Groups } from './pages/Groups'
 import { Profile } from './pages/Profile'
 import { Chat } from './pages/Chat'
+import { Tempchat } from './pages/tempchat'
 
 export const App = () => {
 
@@ -28,6 +29,7 @@ export const App = () => {
         <Route path="/groups" element={<Groups />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/chat" element={<Chat />} />
+        <Route path="/tmp" element={<Tempchat />} />
       </Routes>
     </AnimatePresence>
   )
