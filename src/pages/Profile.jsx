@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { GlassNavbar } from '../components/layout/GlassNavbar';
-import { FloatingSidebar } from '../components/layout/FloatingSidebar';
+import { motion, AnimatePresence } from 'motion/react';
+import { GlassNavbar } from '../layout/GlassNavbar';
+import { FloatingSidebar } from '../layout/FloatingSidebar';
 import { Card } from '../components/ui/Card';
 import { Modal } from '../components/ui/Modal';
 import { Button } from '../components/ui/Button';
 import { Input } from '../components/ui/Input';
-import { GoalPost } from '../features/feed/components/GoalPost';
+import { GoalPost } from '../components/feed/partials/GoalPost';
 import { MOCK_USERS } from '../data/seedData';
-import { useAppStore } from '../store/useAppStore';
-import { useDataStore } from '../store/useDataStore';
-import { calculateTokens } from '../utils/tokenLogic';
+import { useAppStore } from '../store/UseAppStore';
+import { useDataStore } from '../store/UseDataStore';
+import { calculateTokens } from '../utils/Token';
 
 const TABS = ['Goals', 'Saved', 'Groups'];
 
@@ -20,7 +20,7 @@ export function Profile() {
   const [editName, setEditName] = useState('');
   const [editNickname, setEditNickname] = useState('');
   const [editBio, setEditBio] = useState('');
-  
+
   const user = useAppStore((s) => s.user) || MOCK_USERS[0];
   const setUser = useAppStore((s) => s.setUser);
   const goals = useDataStore((s) => s.goals);
@@ -39,7 +39,7 @@ export function Profile() {
   }, [editModalOpen, user?.name, user?.username, user?.bio]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#faf8f5] via-[#f5f0e8] to-[#ebe4d9] dark:from-[#141414] dark:via-[#1a1a1a] dark:to-[#141414]">
+    <div className="min-h-screen bg-linear-to-br from-beige-50 via-beige-100 to-beige-200 dark:from-bg-dark dark:via-charcoal dark:to-bg-dark">
       <GlassNavbar />
       <FloatingSidebar />
 
@@ -48,35 +48,37 @@ export function Profile() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="flex flex-col items-center mb-8">
+            className="flex flex-col items-center mb-8"
+          >
             <div className="relative">
               <img
                 src={user?.avatar || MOCK_USERS[0].avatar}
                 alt={user?.name}
-                className="w-24 h-24 rounded-full object-cover ring-4 ring-[#FF6600]/40"/>
+                className="w-24 h-24 rounded-full object-cover ring-4 ring-accent/40"
+              />
             </div>
-            <h1 className="mt-4 text-2xl font-bold text-[#2d2d2d] dark:text-white">{user?.name || MOCK_USERS[0].name}</h1>
-            <p className="text-[#3d3d3d] dark:text-[#C8C8C8]">@{user?.username || MOCK_USERS[0].username}</p>
-            <p className="mt-2 text-center text-[#3d3d3d] dark:text-[#C8C8C8] max-w-md">{user?.bio || MOCK_USERS[0].bio}</p>
+            <h1 className="mt-4 text-2xl font-bold text-charcoal dark:text-white">{user?.name || MOCK_USERS[0].name}</h1>
+            <p className="text-charcoal-light dark:text-text-dark">@{user?.username || MOCK_USERS[0].username}</p>
+            <p className="mt-2 text-center text-charcoal-light dark:text-text-dark max-w-md">{user?.bio || MOCK_USERS[0].bio}</p>
             <Button variant="secondary" size="sm" className="mt-4" onClick={() => setEditModalOpen(true)}>
               Edit profile
             </Button>
             <div className="flex gap-8 mt-6">
               <div className="text-center">
-                <p className="text-2xl font-bold text-[#2d2d2d] dark:text-white">{myGoals.length}</p>
-                <p className="text-sm text-[#3d3d3d] dark:text-[#C8C8C8]">Goals</p>
+                <p className="text-2xl font-bold text-charcoal dark:text-white">{myGoals.length}</p>
+                <p className="text-sm text-charcoal-light dark:text-text-dark">Goals</p>
               </div>
               <div className="text-center">
-                <p className="text-2xl font-bold text-[#2d2d2d] dark:text-white">128</p>
-                <p className="text-sm text-[#3d3d3d] dark:text-[#C8C8C8]">Followers</p>
+                <p className="text-2xl font-bold text-charcoal dark:text-white">128</p>
+                <p className="text-sm text-charcoal-light dark:text-text-dark">Followers</p>
               </div>
               <div className="text-center">
-                <p className="text-2xl font-bold text-[#2d2d2d] dark:text-white">42</p>
-                <p className="text-sm text-[#3d3d3d] dark:text-[#C8C8C8]">Following</p>
+                <p className="text-2xl font-bold text-charcoal dark:text-white">42</p>
+                <p className="text-sm text-charcoal-light dark:text-text-dark">Following</p>
               </div>
               <div className="text-center">
-                <p className="text-2xl font-bold text-[#FF6600]">{totalTokens}</p>
-                <p className="text-sm text-[#3d3d3d] dark:text-[#C8C8C8]">Tokens</p>
+                <p className="text-2xl font-bold text-accent">{totalTokens}</p>
+                <p className="text-sm text-charcoal-light dark:text-text-dark">Tokens</p>
               </div>
             </div>
           </motion.div>
@@ -86,8 +88,9 @@ export function Profile() {
                 key={tab}
                 onClick={() => setActiveTab(tab)}
                 className={`px-4 py-2 rounded-[20px] text-sm font-medium transition-colors ${
-                  activeTab === tab ? 'bg-[#FF6600] text-white' : 'bg-white/50 dark:bg-white/5 hover:bg-white/70 dark:hover:bg-white/10 text-[#2d2d2d] dark:text-white'
-                }`}>
+                  activeTab === tab ? 'bg-accent text-white' : 'bg-white/50 dark:bg-white/5 hover:bg-white/70 dark:hover:bg-white/10 text-charcoal dark:text-white'
+                }`}
+              >
                 {tab}
               </button>
             ))}
@@ -99,12 +102,13 @@ export function Profile() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="space-y-4">
+                className="space-y-4"
+              >
                 {myGoals.length ? (
                   myGoals.map((goal) => <GoalPost key={goal.id} goal={goal} />)
                 ) : (
                   <Card>
-                    <p className="text-center text-[#3d3d3d] dark:text-[#C8C8C8]">No goals yet. Create one from the feed!</p>
+                    <p className="text-center text-charcoal-light dark:text-text-dark">No goals yet. Create one from the feed!</p>
                   </Card>
                 )}
               </motion.div>
@@ -112,14 +116,14 @@ export function Profile() {
             {activeTab === 'Saved' && (
               <motion.div key="saved" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
                 <Card>
-                  <p className="text-center text-[#3d3d3d] dark:text-[#C8C8C8]">No saved goals.</p>
+                  <p className="text-center text-charcoal-light dark:text-text-dark">No saved goals.</p>
                 </Card>
               </motion.div>
             )}
             {activeTab === 'Groups' && (
               <motion.div key="groups" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
                 <Card>
-                  <p className="text-center text-[#3d3d3d] dark:text-[#C8C8C8]">No groups joined.</p>
+                  <p className="text-center text-charcoal-light dark:text-text-dark">No groups joined.</p>
                 </Card>
               </motion.div>
             )}
