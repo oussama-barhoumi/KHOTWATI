@@ -18,13 +18,14 @@ export function Feed() {
   const goals = useDataStore((s) => s.goals);
   const addGoal = useDataStore((s) => s.addGoal);
 
+  const [showModal, setShowModal] = useState(false);
+
   const totalTokens = goals.reduce((acc, g) => {
     const commentCount = g.comments + (g.commentList?.length || 0);
     return acc + calculateTokens(g.likes, commentCount, g.approves);
   }, 0);
 
   const handleGoalCreated = (newGoal) => {
-    if (!user) return; 
     addGoal({
       ...newGoal,
       userId: user?.id || '1',
@@ -41,12 +42,16 @@ export function Feed() {
 
       <div className="pt-20 pb-24 md:pb-12 md:pl-24">
         <div className="max-w-4xl mx-auto px-4 md:px-8">
+
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             className="mb-6 flex items-center justify-between"
           >
-            <h1 className="text-2xl font-bold text-charcoal dark:text-white">Feed</h1>
+            <h1 className="text-2xl font-bold text-charcoal dark:text-white">
+              Feed
+            </h1>
+
             <div className="flex items-center gap-2 px-4 py-2 rounded-[20px] bg-accent/10 dark:bg-accent/20 text-accent font-medium">
               <IconToken className="w-5 h-5" />
               <span>{totalTokens} tokens</span>
@@ -55,7 +60,15 @@ export function Feed() {
 
           <Stories />
 
-          {user && <CreateGoal onGoalCreated={handleGoalCreated} />}
+          <CreateGoal
+            onGoalCreated={(goal) => {
+              if (!user) {
+                setShowModal(true);
+                return;
+              }
+              handleGoalCreated(goal);
+            }}
+          />
 
           <div className="space-y-4">
             {goals.map((goal, i) => (
@@ -87,35 +100,47 @@ export function Feed() {
       </div>
 
       <AnimatePresence>
-        {!user && (
+        {showModal && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm"
           >
             <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-white dark:bg-gray-900 rounded-xl p-8 max-w-sm w-full text-center shadow-2xl"
+              initial={{ scale: 0.9 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.9 }}
+              className="w-[90%] max-w-md bg-white/60 dark:bg-white/10 backdrop-blur-xl rounded-[32px] border border-white/25 dark:border-white/10 shadow-xl p-8 text-center"
             >
               <h2 className="text-xl font-bold mb-4 text-charcoal dark:text-white">
-                You must log in!
+                Login Required
               </h2>
+
               <p className="mb-6 text-charcoal/70 dark:text-white/70">
-                To create a goal or interact with the feed, please log in first.
+                You must log in to create a goal.
               </p>
-              <button
-                onClick={() => window.location.href = '/login'}
-                className="px-6 py-2 rounded-full bg-accent text-white font-medium hover:bg-accent-dark transition-colors"
-              >
-                Go to Login
-              </button>
+
+              <div className="flex gap-3">
+                <button
+                  onClick={() => (window.location.href = '/login')}
+                  className="flex-1 px-4 py-2 rounded-[20px] bg-accent text-white font-medium"
+                >
+                  Login
+                </button>
+
+                <button
+                  onClick={() => setShowModal(false)}
+                  className="flex-1 px-4 py-2 rounded-[20px] bg-white/60 dark:bg-white/10 border border-white/25 dark:border-white/10"
+                >
+                  Cancel
+                </button>
+              </div>
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
+
     </div>
   );
 }

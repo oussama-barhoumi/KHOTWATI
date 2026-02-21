@@ -11,7 +11,7 @@ import { Feed } from './pages/Feed'
 import { Groups } from './pages/Groups'
 import { Profile } from './pages/Profile'
 import { Chat } from './pages/Chat'
-// import { Tempchat } from './pages/tempchat'
+import { Tempchat } from './pages/tempchat'
 
 export const App = () => {
 
@@ -23,21 +23,21 @@ export const App = () => {
 
   return (
     <>
-    <GoalReminderBanner />
-    <AnimatePresence mode="wait">
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/feed" element={<ProtectedRoute><Feed /></ProtectedRoute>} />
-        <Route path="/groups" element={<ProtectedRoute><Groups /></ProtectedRoute>} />
-        <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-        <Route path="/chat" element={<ProtectedRoute><Chat /></ProtectedRoute>} />
-        {/* <Route path="/tmp" element={<Tempchat />} /> */}
+      <GoalReminderBanner />
+      <AnimatePresence mode="wait">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
 
-      </Routes>
-    </AnimatePresence>
+          <Route path="/feed" element={<ProtectedRoute><Feed /></ProtectedRoute>} />
+          <Route path="/groups" element={<ProtectedRoute><Groups /></ProtectedRoute>} />
+          <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+          <Route path="/chat" element={<ProtectedRoute><Chat /></ProtectedRoute>} />
+
+          <Route path="/tmp" element={<Tempchat />} />
+        </Routes>
+      </AnimatePresence>
     </>
   )
 }
-
