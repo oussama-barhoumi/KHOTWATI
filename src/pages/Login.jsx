@@ -60,7 +60,7 @@ export function Login() {
                         <p className="mt-6 text-center text-sm">
                             Don’t have an account?{" "}
                             <Link to="/signup" className="text-accent font-medium">
-                                Sign up
+                                Sign UP
                             </Link>
                         </p>
                     </div>
