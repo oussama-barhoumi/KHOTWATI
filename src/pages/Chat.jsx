@@ -25,7 +25,7 @@ export function Chat() {
                 <h2 className="text-xl font-bold text-charcoal dark:text-white mb-2">Chat</h2>
                 <p className="text-charcoal-light dark:text-text-dark mb-6">Start conversations and connect with others.</p>
                 {user ? (
-                  <p className="text-sm text-charcoal dark:text-white">Chat coming soon.</p>
+                  <p className="text-charcoal-light dark:text-text-dark">Chat coming soon.</p>
                 ) : (
                   <Link to="/login">
                     <Button>Log in to chat</Button>

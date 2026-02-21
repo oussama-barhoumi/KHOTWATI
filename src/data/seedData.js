@@ -14,6 +14,14 @@ export const MOCK_GOALS = [
   { id: 'g5', userId: '5', title: 'Read 24 books this year', description: '2 books down, 22 to go. Currently: Atomic Habits', progress: 8, likes: 34, comments: 8, approves: 21, createdAt: '2025-02-19' },
 ];
 
+export const FREE_STORY_MUSIC = [
+  { id: 'calm', label: 'Calm ambient', url: 'https://assets.mixkit.co/music/preview/mixkit-serene-view-443.mp3' },
+  { id: 'upbeat', label: 'Upbeat positive', url: 'https://assets.mixkit.co/music/preview/mixkit-summer-days-108.mp3' },
+  { id: 'chill', label: 'Chill vibe', url: 'https://assets.mixkit.co/music/preview/mixkit-lofi-chill-170.mp3' },
+  { id: 'inspiring', label: 'Inspiring', url: 'https://assets.mixkit.co/music/preview/mixkit-acoustic-guitar-1662.mp3' },
+  { id: 'motivation', label: 'Motivation', url: 'https://assets.mixkit.co/music/preview/mixkit-game-level-music-689.mp3' },
+];
+
 export const MOCK_GROUPS = [
   { id: 'gr1', name: 'Morning Routines', description: 'Early birds unite! Share your AM rituals.', memberCount: 234, iconKey: 'sunrise' },
   { id: 'gr2', name: 'Fitness Goals', description: 'Get fit together. Support & accountability.', memberCount: 567, iconKey: 'dumbbell' },

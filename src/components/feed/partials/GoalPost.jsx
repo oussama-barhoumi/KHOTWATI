@@ -83,15 +83,26 @@ export function GoalPost({ goal }) {
             <h3 className="font-semibold text-charcoal dark:text-white">{user.name}</h3>
             <div className="flex items-center gap-2">
               {isOwner && (
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => setIsEditing(true)}
-                  className="p-1.5 rounded-full text-charcoal-light dark:text-text-dark hover:bg-white/50 dark:hover:bg-white/10"
-                  title="Edit post"
-                >
-                  <IconPencil className="w-4 h-4" />
-                </motion.button>
+                <>
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => setIsEditing(true)}
+                    className="p-1.5 rounded-full text-charcoal-light dark:text-text-dark hover:bg-white/50 dark:hover:bg-white/10"
+                    title="Edit post"
+                  >
+                    <IconPencil className="w-4 h-4" />
+                  </motion.button>
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={handleDelete}
+                    className="p-1.5 rounded-full text-charcoal-light dark:text-text-dark hover:bg-red-500/20 hover:text-red-500"
+                    title="Delete post"
+                  >
+                    <IconTrash className="w-4 h-4" />
+                  </motion.button>
+                </>
               )}
               <span className="text-xs text-accent bg-accent/10 dark:bg-accent/20 px-2 py-1 rounded-full">
                 {verification}% verified

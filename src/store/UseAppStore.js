@@ -8,6 +8,8 @@ export const useAppStore = create(
       user: null,
       suggestedUsersVisible: true,
       setSuggestedUsersVisible: (visible) => set({ suggestedUsersVisible: visible }),
+      focusGoal: null,
+      setFocusGoal: (focusGoal) => set({ focusGoal }),
       toggleTheme: () =>
         set((state) => {
           const newTheme = state.theme === 'light' ? 'dark' : 'light';
@@ -17,6 +19,6 @@ export const useAppStore = create(
       setUser: (user) => set({ user }),
       logout: () => set({ user: null }),
     }),
-    { name: 'khotwa-store', partialize: (state) => ({ theme: state.theme, user: state.user, suggestedUsersVisible: state.suggestedUsersVisible }) }
+    { name: 'khotwa-store', partialize: (state) => ({ theme: state.theme, user: state.user, suggestedUsersVisible: state.suggestedUsersVisible, focusGoal: state.focusGoal }) }
   )
 );
