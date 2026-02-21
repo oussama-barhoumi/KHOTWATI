@@ -41,7 +41,6 @@ export function Feed() {
 
       <div className="pt-20 pb-24 md:pb-12 md:pl-24">
         <div className="max-w-4xl mx-auto px-4 md:px-8">
-          
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
