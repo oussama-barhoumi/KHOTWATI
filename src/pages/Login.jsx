@@ -47,8 +47,8 @@ export function Login() {
                         <h1 className="text-2xl font-bold mb-6">Login</h1>
 
                         <form onSubmit={handleSubmit} className="space-y-4">
-                            <Input  label="Email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-                            <Input label="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                            <Input placeholder="Your email"  label="Email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                            <Input placeholder="Your password" label="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
 
                             {error && <p className="text-sm text-red-500">{error}</p>}
 
