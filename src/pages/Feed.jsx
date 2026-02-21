@@ -1,4 +1,5 @@
-import { motion } from 'motion/react';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { Stories } from '../components/feed/partials/Stories';
 import { GoalPost } from '../components/feed/partials/GoalPost';
 import { CreateGoal } from '../components/feed/partials/CreateGoal';
@@ -23,6 +24,7 @@ export function Feed() {
   }, 0);
 
   const handleGoalCreated = (newGoal) => {
+    if (!user) return; 
     addGoal({
       ...newGoal,
       userId: user?.id || '1',
@@ -33,13 +35,13 @@ export function Feed() {
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-beige-50 via-beige-100 to-beige-200 dark:from-bg-dark dark:via-charcoal dark:to-bg-dark">
+    <div className="min-h-screen bg-linear-to-br from-beige-50 via-beige-100 to-beige-200 dark:from-bg-dark dark:via-charcoal dark:to-bg-dark relative">
       <GlassNavbar />
       <FloatingSidebar />
 
       <div className="pt-20 pb-24 md:pb-12 md:pl-24">
         <div className="max-w-4xl mx-auto px-4 md:px-8">
-          {/* Token counter */}
+          
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -53,7 +55,8 @@ export function Feed() {
           </motion.div>
 
           <Stories />
-          <CreateGoal onGoalCreated={handleGoalCreated} />
+
+          {user && <CreateGoal onGoalCreated={handleGoalCreated} />}
 
           <div className="space-y-4">
             {goals.map((goal, i) => (
@@ -83,6 +86,37 @@ export function Feed() {
           )}
         </div>
       </div>
+
+      <AnimatePresence>
+        {!user && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm"
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="bg-white dark:bg-gray-900 rounded-xl p-8 max-w-sm w-full text-center shadow-2xl"
+            >
+              <h2 className="text-xl font-bold mb-4 text-charcoal dark:text-white">
+                You must log in!
+              </h2>
+              <p className="mb-6 text-charcoal/70 dark:text-white/70">
+                To create a goal or interact with the feed, please log in first.
+              </p>
+              <button
+                onClick={() => window.location.href = '/login'}
+                className="px-6 py-2 rounded-full bg-accent text-white font-medium hover:bg-accent-dark transition-colors"
+              >
+                Go to Login
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
