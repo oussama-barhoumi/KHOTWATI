@@ -72,10 +72,28 @@ export function SignUp() {
                         <h1 className="text-2xl font-bold mb-6">Create account</h1>
 
                         <form onSubmit={handleSubmit} className="space-y-4">
-                            <Input label="Name" value={name} onChange={(e) => setName(e.target.value)} />
-                            <Input label="Email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-                            <Input label="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                            <Input
+                                label="Name"
+                                value={name}
+                                placeholder="Your name"
+                                onChange={(e) => setName(e.target.value)}
+                            />
 
+                            <Input
+                                label="Email"
+                                type="email"
+                                value={email}
+                                placeholder="Your email"
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+
+                            <Input
+                                label="Password"
+                                type="password"
+                                value={password}
+                                placeholder="Your password"
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
                             {error && <p className="text-sm text-red-500">{error}</p>}
 
                             <Button type="submit" className="w-full" loading={loading}>
@@ -86,7 +104,7 @@ export function SignUp() {
                         <p className="mt-6 text-center text-sm">
                             Already have an account?{" "}
                             <Link to="/login" className="text-accent font-medium">
-                                Log in
+                                Login
                             </Link>
                         </p>
                     </div>
