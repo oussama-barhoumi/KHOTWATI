@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router-dom'
 import { AnimatePresence } from 'motion/react'
 import { GoalReminderBanner } from './components/GoalReminderBanner'
+import { ProtectedRoute } from './components/ProtectedRoute'
 import { Home } from './pages/Home'
 import { useAppStore } from './store/UseAppStore'
 import { useEffect } from 'react'
@@ -27,10 +28,10 @@ export const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/feed" element={<Feed />} />
-        <Route path="/groups" element={<Groups />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/chat" element={<Chat />} />
+        <Route path="/feed" element={<ProtectedRoute><Feed /></ProtectedRoute>} />
+        <Route path="/groups" element={<ProtectedRoute><Groups /></ProtectedRoute>} />
+        <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+        <Route path="/chat" element={<ProtectedRoute><Chat /></ProtectedRoute>} />
       </Routes>
     </AnimatePresence>
     </>
