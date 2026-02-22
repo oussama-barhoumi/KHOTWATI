@@ -12,7 +12,7 @@ export const Home = ()=> {
     <div className="min-h-screen bg-linear-to-br from-beige-50 via-beige-100 to-beige-100 dark:from-bg-dark dark:via-charcoal dark:to-bg-dark">
       <GlassNavbar />
 
-      <section className="pt-32 pb-20 px-4">
+      <section  className="pt-32 pb-20 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <motion.h1
             {...fadeUp}
