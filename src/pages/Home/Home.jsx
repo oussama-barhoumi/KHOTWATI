@@ -1,8 +1,8 @@
-import { GlassNavbar } from "../layout/GlassNavbar"
+import { GlassNavbar } from "../../layout/GlassNavbar"
 import { motion } from 'motion/react'
-import { Button } from '../components/ui/Button'
-import { IconTarget, IconHandshake, IconToken } from '../constant/icon/Icon';
-import { Card } from '../components/ui/Card';
+import { Button } from '../../components/ui/Button'
+import { IconTarget, IconHandshake, IconToken } from '../../constant/icon/Icon';
+import { Card } from '../../components/ui/Card';
 import { Link } from 'react-router-dom';
 
 const fadeUp = { initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 } };
@@ -84,9 +84,9 @@ export const Home = ()=> {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="max-w-3xl mx-auto"
+          className="max-w-md md:max-w-lg lg:max-w-xl mx-auto"
         >
-          <Card>
+          <Card className="md:p-5 text-center">
             <h2 className="text-2xl font-bold text-charcoal dark:text-white mb-6">Token System</h2>
             <div className="space-y-4 text-charcoal dark:text-white">
               <p>• 100 likes = 10 tokens</p>
