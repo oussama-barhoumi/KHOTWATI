@@ -2,7 +2,6 @@ import { Route, Routes } from 'react-router-dom'
 import { AnimatePresence } from 'motion/react'
 import { GoalReminderBanner } from './components/GoalReminderBanner'
 import { ProtectedRoute } from './components/ProtectedRoute'
-import { Home } from './pages/Home/Home'
 import { useAppStore } from './store/UseAppStore'
 import { useEffect } from 'react'
 import { Login } from './pages/Login'
@@ -13,6 +12,7 @@ import { Profile } from './pages/Profile'
 import { Chat } from './pages/Chat'
 import { Tempchat } from './pages/tempchat'
 import { ErrorPage } from './pages/error'
+import { HomeRoute } from './pages/Home/HomeRoute'
 
 export const App = () => {
 
@@ -27,7 +27,7 @@ export const App = () => {
       <GoalReminderBanner />
       <AnimatePresence mode="wait">
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<HomeRoute />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
 

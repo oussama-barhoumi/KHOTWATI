@@ -34,21 +34,23 @@ export const GlassNavbar = () => {
     >
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <Link to="/" className="flex items-center gap-2 min-w-0 shrink">
+          <Link to={user ? '/feed' : '/'} className="flex items-center gap-2 min-w-0 shrink">
             <span className="text-xl sm:text-3xl font-bold font-orbitron uppercase tracking-wider bg-gradient-to-r from-[#FF6600] to-[#FFBF00] bg-clip-text text-transparent truncate">
               Khotwa
             </span>
           </Link>
 
           <div className="hidden md:flex items-center gap-2">
-            <Link
-              to="/"
-              className={`px-4 py-2 rounded-xl text-sm font-medium transition-colors ${
-                location.pathname === '/' ? 'text-[#FF6600] bg-[#FF6600]/10' : 'text-[#2d2d2d] dark:text-white hover:text-[#FF6600] hover:bg-[#FF6600]/10'
-              }`}
-            >
-              Home
-            </Link>
+            {!user && (
+              <Link
+                to="/"
+                className={`px-4 py-2 rounded-xl text-sm font-medium transition-colors ${
+                  location.pathname === '/' ? 'text-[#FF6600] bg-[#FF6600]/10' : 'text-[#2d2d2d] dark:text-white hover:text-[#FF6600] hover:bg-[#FF6600]/10'
+                }`}
+              >
+                Home
+              </Link>
+            )}
             <Link
               to="/feed"
               className={`px-4 py-2 rounded-xl text-sm font-medium transition-colors ${
