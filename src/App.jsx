@@ -12,6 +12,7 @@ import { Groups } from './pages/Groups'
 import { Profile } from './pages/Profile'
 import { Chat } from './pages/Chat'
 import { Tempchat } from './pages/tempchat'
+import { ErrorPage } from './pages/error'
 
 export const App = () => {
 
@@ -36,6 +37,8 @@ export const App = () => {
           <Route path="/chat" element={<ProtectedRoute><Chat /></ProtectedRoute>} />
 
           <Route path="/tmp" element={<Tempchat />} />
+          <Route path="/error" element={<ErrorPage />} />
+          <Route path="*" element={<ErrorPage />} />
         </Routes>
       </AnimatePresence>
     </>
