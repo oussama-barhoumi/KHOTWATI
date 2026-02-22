@@ -49,7 +49,7 @@ export const Home = () => {
           initial="initial"
           animate={mounted ? "animate" : "initial"}
         >
-          <motion.div className="glass-card dark:bg-bg-card/80 dark:border-[var(--color-glass-border)] rounded-[var(--radius-2xl)] p-8 sm:p-10 md:p-12 shadow-soft dark:shadow-soft-dark">
+          <motion.div className="p-8 sm:p-10 md:p-12">
             <motion.p
               variants={fadeUp}
               transition={heroTransition}
