@@ -1,12 +1,11 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-// eslint-disable-next-line no-unused-vars -- motion used as motion.nav, motion.div
 import { motion, AnimatePresence } from 'motion/react';
 import { Button } from '../components/ui/Button';
 import { IconSun, IconMoon } from '../constant/icon/Icon';
 import { useAppStore } from '../store/UseAppStore';
 
-export function GlassNavbar() {
+export const GlassNavbar = () => {
   const { user, toggleTheme, theme, logout } = useAppStore();
   const location = useLocation();
   const navigate = useNavigate();
@@ -33,10 +32,10 @@ export function GlassNavbar() {
       animate={{ y: 0, opacity: 1 }}
       className="fixed top-0 left-0 right-0 z-40 bg-white/40 dark:bg-white/5 backdrop-blur-xl border-b border-white/20 dark:border-white/5"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <Link to="/" className="flex items-center gap-2">
-            <span className="text-3xl font-bold font-orbitron uppercase tracking-wider bg-gradient-to-r from-[#FF6600] to-[#FFBF00] bg-clip-text text-transparent">
+          <Link to="/" className="flex items-center gap-2 min-w-0 shrink">
+            <span className="text-xl sm:text-3xl font-bold font-orbitron uppercase tracking-wider bg-gradient-to-r from-[#FF6600] to-[#FFBF00] bg-clip-text text-transparent truncate">
               Khotwa
             </span>
           </Link>
@@ -68,7 +67,7 @@ export function GlassNavbar() {
             </Link>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             <button
               onClick={toggleTheme}
               className="p-2 rounded-full hover:bg-[#FF6600]/10 hover:text-[#FF6600] dark:hover:bg-[#FF6600]/20 transition-colors"
@@ -118,14 +117,14 @@ export function GlassNavbar() {
                 </AnimatePresence>
               </div>
             ) : (
-              <>
+              <div className="flex items-center gap-3">
                 <Link to="/login">
-                  <Button variant="ghost" size="sm">Log in</Button>
+                  <Button variant="ghost" size="sm" className="!px-3 !py-1.5 !text-xs sm:!px-4 sm:!py-2 sm:!text-sm">Log in</Button>
                 </Link>
                 <Link to="/signup">
-                  <Button variant="primary" size="sm">Sign up</Button>
+                  <Button variant="primary" size="sm" className="!px-3 !py-1.5 !text-xs sm:!px-4 sm:!py-2 sm:!text-sm">Sign up</Button>
                 </Link>
-              </>
+              </div>
             )}
           </div>
         </div>
