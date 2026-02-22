@@ -1,17 +1,71 @@
-# React + Vite
+# Khotwa
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![Khotwa Logo](./src/assets/logo.png)
 
-Currently, two official plugins are available:
+**Share goals. Get support.**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Khotwa is a community platform where you can share your goals, earn tokens from engagement, and get verified approval from peers.
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Share goals and track progress
+- Get support through likes, comments, and approvals
+- Earn tokens from engagement (bonus when verification > 70%)
+- Feed, Groups, Profile, and Chat
+- Dark & Light theme
+- Goal reminders
 
-## Expanding the ESLint configuration
+## Technologies
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-# KHOTWA.
+- React 19
+- Vite 7
+- Tailwind CSS 4
+- Motion
+- React Router
+- React Icons
+
+## Team
+
+**Team Leader:** oussama barhoumi
+
+**Contributors:** 
+-Douaeelyaaqoubi
+-ChoroukMouaky
+-Nour el houda OKMID
+-zak-ari0
+-hamza_enneiymy
+-Ayoub Ennaciri
+
+
+## Getting Started
+
+**Prerequisites:** 
+Node.js v18+
+
+```bash
+git clone   https://github.com/oussama-barhoumi/KHOTWATI.git
+cd khotwa
+npm install
+npm run dev
+```
+
+
+
+
+
+## How to Use
+
+**Visitors:** 
+Home → Sign up or Log in
+
+**Logged in:** 
+Feed (browse, like, comment, approve) 
+· Groups 
+· Profile 
+· Chat
+
+**Token System:** 
+100 likes = 10 tokens 
+· 20 comments = 5 tokens
+· 10 approves = 15 tokens 
+· Verification > 70% = +25 bonus
