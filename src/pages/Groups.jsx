@@ -3,6 +3,7 @@ import { motion } from 'motion/react';
 import { GlassNavbar } from '../layout/GlassNavbar';
 import { IconSunrise, IconDumbbell, IconCode, IconMeditate } from '../constant/icon/Icon';
 import { FloatingSidebar } from '../layout/FloatingSidebar';
+import { ChatWindow } from '../components/chat/partials/ChatWindow';
 import { Card } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { useDataStore } from '../store/UseDataStore';
@@ -12,6 +13,9 @@ const ICON_KEYS = ['sunrise', 'dumbbell', 'code', 'meditate'];
 export function Groups() {
     const groups = useDataStore((s) => s.groups);
     const addGroup = useDataStore((s) => s.addGroup);
+    const chatMessages = useDataStore((s) => s.chatMessages);
+    const addChatMessage = useDataStore((s) => s.addChatMessage);
+    const [selectedGroup, setSelectedGroup] = useState(null);
     const [createModalOpen, setCreateModalOpen] = useState(false);
     const [newName, setNewName] = useState('');
     const [newDesc, setNewDesc] = useState('');
@@ -39,7 +43,10 @@ export function Groups() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.05 }}>
-                <Card className="cursor-pointer hover:border-accent/30 transition-colors">
+                <Card
+                  className="cursor-pointer hover:border-accent/30 transition-colors"
+                  onClick={() => setSelectedGroup(group)}
+                >
                     <div className="flex items-start gap-4">
                         <div className="w-14 h-14 rounded-[20px] bg-accent/20 dark:bg-accent/10 flex items-center justify-center text-accent">
                             {group.iconKey === 'sunrise' && <IconSunrise className="w-7 h-7" />}
@@ -111,6 +118,24 @@ export function Groups() {
                 }
                 }}> Create </Button>
             </div>
+            </motion.div>
+        </div>
+        )}
+        {selectedGroup && (
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-[100] flex items-center justify-center p-4" onClick={() => setSelectedGroup(null)}>
+            <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="bg-white/80 dark:bg-charcoal/95 backdrop-blur-xl rounded-[20px] border border-white/25 dark:border-white/10 shadow-xl p-4 w-full max-w-3xl"
+            onClick={(e) => e.stopPropagation()}>
+                <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-lg font-semibold text-charcoal dark:text-white">{selectedGroup.name}</h3>
+                    <button onClick={() => setSelectedGroup(null)} className="text-charcoal/70 dark:text-white/70">Close</button>
+                </div>
+
+                <div>
+                    <ChatWindow contact={selectedGroup} messages={chatMessages[selectedGroup.id] ?? []} onSend={(id, text) => addChatMessage(id, { text, fromMe: true })} />
+                </div>
             </motion.div>
         </div>
         )}

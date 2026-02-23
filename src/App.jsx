@@ -13,6 +13,7 @@ import { Chat } from './pages/Chat'
 import { Tempchat } from './pages/tempchat'
 import { ErrorPage } from './pages/error'
 import { HomeRoute } from './pages/Home/HomeRoute'
+import GrogWidget from './components/chat/GrogWidget'
 
 export const App = () => {
 
@@ -24,6 +25,7 @@ export const App = () => {
 
   return (
     <>
+      <GrogWidget />
       <GoalReminderBanner />
       <AnimatePresence mode="wait">
         <Routes>

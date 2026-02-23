@@ -19,7 +19,7 @@ export const Tempchat = () => {
     // connect to the socket once
     useEffect( ()=>
     {
-        socket.current  = io("http://192.168.11.112:3000");
+        socket.current  = io("http://192.168.100.17:3000");
 
         // when
         socket.current.on("response",(res)=>{

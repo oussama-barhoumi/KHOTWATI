@@ -37,6 +37,7 @@ export const useDataStore = create(
       goalEngagement: {},
       groups: MOCK_GROUPS,
       stories: [],
+      contacts: [],
       chatMessages: { ai: defaultAiMessages, '1': defaultChat1Messages },
 
       addStory: (story) =>
@@ -105,6 +106,17 @@ export const useDataStore = create(
           ],
         })),
 
+      addContact: (contact) =>
+        set((state) => {
+          if (!contact || !contact.id) return { contacts: state.contacts };
+          if (state.contacts.find((c) => c.id === contact.id)) return { contacts: state.contacts };
+          const mapped = { id: contact.id, name: contact.name, initials: (contact.name || '').split(' ').map(n => n[0]).slice(0,2).join('').toUpperCase(), lastMessage: '', unread: 0, status: 'Active' };
+          return { contacts: [...state.contacts, mapped] };
+        }),
+
+      removeContact: (contactId) =>
+        set((state) => ({ contacts: state.contacts.filter((c) => c.id !== contactId) })),
+
       addChatMessage: (chatId, message) =>
         set((state) => {
           const key = String(chatId || 'ai');
@@ -124,7 +136,7 @@ export const useDataStore = create(
     }),
     {
       name: 'khotwa-data',
-      partialize: (s) => ({ goals: s.goals, goalEngagement: s.goalEngagement, groups: s.groups, stories: s.stories, chatMessages: s.chatMessages }),
+      partialize: (s) => ({ goals: s.goals, goalEngagement: s.goalEngagement, groups: s.groups, stories: s.stories, chatMessages: s.chatMessages, contacts: s.contacts }),
       merge: (persisted, current) => {
         const p = persisted || {};
         const goals = Array.isArray(p.goals)
@@ -137,12 +149,14 @@ export const useDataStore = create(
             }))
           : current.goals;
         const groups = Array.isArray(p.groups) && p.groups.length > 0 ? p.groups : (Array.isArray(current.groups) && current.groups.length > 0 ? current.groups : MOCK_GROUPS);
+        const contacts = Array.isArray(p.contacts) ? p.contacts : current.contacts;
         return {
           ...current,
           goals,
           goalEngagement: p.goalEngagement && typeof p.goalEngagement === 'object' ? p.goalEngagement : current.goalEngagement,
           groups,
           stories: Array.isArray(p.stories) ? p.stories : current.stories,
+          contacts,
           chatMessages: ensureValidChatMessages(p.chatMessages),
         };
       },
