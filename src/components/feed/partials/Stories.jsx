@@ -102,15 +102,15 @@ export function Stories() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black z-[200]"
+              className="fixed inset-0 bg-black z-200"
               onClick={() => setViewingStory(null)}
             />
-            <div className="fixed inset-0 z-[201] flex items-center justify-center p-4 pointer-events-none">
+            <div className="fixed inset-0 z-201 flex items-center justify-center p-4 pointer-events-none">
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
-                className="pointer-events-auto w-full max-w-sm aspect-[9/16] max-h-[85vh] rounded-2xl overflow-hidden bg-black relative"
+                className="pointer-events-auto w-full max-w-sm aspect-9/16 max-h-[85vh] rounded-2xl overflow-hidden bg-black relative"
                 onClick={(e) => e.stopPropagation()}
               >
                 {viewingStory.musicUrl && <audio ref={audioRef} loop preload="auto" playsInline />}
