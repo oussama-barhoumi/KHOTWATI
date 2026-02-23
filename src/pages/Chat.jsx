@@ -254,7 +254,6 @@ export function Chat() {
                     </div>
                   )}
                   </div>
-                  )}
 
                 <div className="flex-1 overflow-y-auto mt-4">
                   <ChatList

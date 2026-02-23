@@ -39,8 +39,7 @@ export const App = () => {
           <Route path="/chat" element={<ProtectedRoute><Chat /></ProtectedRoute>} />
 
           <Route path="/tmp" element={<Tempchat />} />
-          <Route path="/error" element={<ErrorPage />} />
-          <Route path="*" element={<ErrorPage />} />
+          <Route path="/*" element={<ErrorPage />} />
         </Routes>
       </AnimatePresence>
     </>
