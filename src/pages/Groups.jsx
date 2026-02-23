@@ -126,14 +126,14 @@ export function Groups() {
             <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-white/80 dark:bg-charcoal/95 backdrop-blur-xl rounded-[20px] border border-white/25 dark:border-white/10 shadow-xl p-4 w-full max-w-3xl"
+            className="bg-white/80 dark:bg-charcoal/95 backdrop-blur-xl rounded-[20px] border border-white/25 dark:border-white/10 shadow-xl p-4 w-full max-w-3xl h-[70vh] flex flex-col"
             onClick={(e) => e.stopPropagation()}>
                 <div className="flex items-center justify-between mb-4">
                     <h3 className="text-lg font-semibold text-charcoal dark:text-white">{selectedGroup.name}</h3>
                     <button onClick={() => setSelectedGroup(null)} className="text-charcoal/70 dark:text-white/70">Close</button>
                 </div>
 
-                <div>
+                <div className="flex-1 overflow-hidden">
                     <ChatWindow contact={selectedGroup} messages={chatMessages[selectedGroup.id] ?? []} onSend={(id, text) => addChatMessage(id, { text, fromMe: true })} />
                 </div>
             </motion.div>

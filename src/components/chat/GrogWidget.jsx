@@ -26,6 +26,16 @@ export function GrogWidget() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // close on Escape for accessibility / when header close is not reachable
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e) => {
+      if (e.key === 'Escape') setOpen(false);
+    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [open]);
+
   async function handleSend(chatId, text) {
     // persist user message
     addChatMessage(chatId, { text, fromMe: true });
@@ -45,41 +55,67 @@ export function GrogWidget() {
 
   return (
     <>
-      {/* Floating Button */}
-      <div className="fixed bottom-6 right-6 z-50">
-        <button
-          onClick={() => setOpen((v) => !v)}
-          title="Open Grog chat"
-          className="w-14 h-14 rounded-full bg-accent shadow-lg flex items-center justify-center text-white text-lg"
-        >
-          💬
-        </button>
-      </div>
+      {/* Floating Button (hidden when drawer is open) */}
+      {!open && (
+        <div className="fixed bottom-6 right-6 z-50">
+          <button
+            onClick={() => setOpen((v) => !v)}
+            title="Open Grog chat"
+            className="w-14 h-14 rounded-full bg-accent shadow-lg flex items-center justify-center text-white text-lg"
+          >
+            💬
+          </button>
+        </div>
+      )}
+
+      {/* Guaranteed close control: fixed button above everything when drawer is open */}
+      {open && (
+        <div className="fixed top-4 right-4 z-60">
+          <button
+            onClick={() => setOpen(false)}
+            aria-label="Close chat"
+            className="w-10 h-10 rounded-full bg-accent shadow-lg flex items-center justify-center text-white text-lg"
+          >
+            ×
+          </button>
+        </div>
+      )}
 
       {/* Side chat drawer */}
       <div className={`fixed top-0 right-0 z-40 h-full w-full md:w-96 bg-transparent ${open ? '' : 'pointer-events-none'}`} aria-hidden={!open}>
-        <div className={`absolute inset-0 bg-black/40 transition-opacity ${open ? 'opacity-100' : 'opacity-0'}`} onClick={() => setOpen(false)} />
-        <div className={`absolute top-0 right-0 h-full w-full md:w-96 bg-white dark:bg-[#081018] shadow-xl transform transition-transform ${open ? 'translate-x-0' : 'translate-x-full'}`}>
-          <div className="p-4 border-b border-white/25 dark:border-white/10 flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-accent flex items-center justify-center text-white font-medium">GR</div>
-              <div>
-                <div className="text-sm font-medium text-charcoal dark:text-white">Grog (bot)</div>
-                <div className="text-xs text-charcoal/70 dark:text-white/70">AI assistant</div>
+        <div className={`absolute inset-0 bg-black/40 transition-opacity ${open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'} z-40`} onClick={() => setOpen(false)} />
+        <div className={`absolute top-0 right-0 h-full w-full md:w-96 bg-white dark:bg-[#081018] shadow-xl transform transition-transform ${open ? 'translate-x-0' : 'translate-x-full'} z-50`}>
+          <div className="flex flex-col h-full">
+            <div className="p-4 border-b border-white/25 dark:border-white/10 flex items-center justify-between relative">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-accent flex items-center justify-center text-white font-medium">GR</div>
+                <div>
+                  <div className="text-sm font-medium text-charcoal dark:text-white">Grog (bot)</div>
+                  <div className="text-xs text-charcoal/70 dark:text-white/70">AI assistant</div>
+                </div>
               </div>
-            </div>
-            <div>
-              <button onClick={() => setOpen(false)} className="px-3 py-1 rounded-md bg-white/10">Close</button>
-            </div>
-          </div>
+              <div>
+                <button onClick={() => setOpen(false)} className="px-3 py-1 rounded-md bg-white/10">Close</button>
+              </div>
 
-          <div className="p-4">
-            <ChatWindow
-              contact={botContact}
-              messages={botMessages || []}
-              currentUserId={user?.id}
-              onSend={handleSend}
-            />
+              {/* floating close (always reachable) */}
+              <button
+                onClick={() => setOpen(false)}
+                aria-label="Close chat"
+                className="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/10 flex items-center justify-center text-white z-50"
+              >
+                ×
+              </button>
+            </div>
+
+            <div className="flex-1 p-4 overflow-hidden">
+              <ChatWindow
+                contact={botContact}
+                messages={botMessages || []}
+                currentUserId={user?.id}
+                onSend={handleSend}
+              />
+            </div>
           </div>
         </div>
       </div>

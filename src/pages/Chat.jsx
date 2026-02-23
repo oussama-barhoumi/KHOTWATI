@@ -217,9 +217,9 @@ export function Chat() {
             <h1 className="text-2xl font-bold text-charcoal dark:text-white">Chat</h1>
           </motion.div>
 
-          <Card className="p-0 overflow-hidden">
-            <div className="flex flex-col md:flex-row">
-              <div className="md:w-80 w-full border-r border-white/25 dark:border-white/10 p-4">
+          <Card className="p-0 overflow-hidden h-[calc(100vh-5rem)]">
+            <div className="flex flex-col md:flex-row h-full">
+              <div className="md:w-80 w-full border-r border-white/25 dark:border-white/10 p-4 flex flex-col">
                 <h3 className="text-sm font-medium text-charcoal dark:text-white mb-4">Conversations</h3>
                 <div className="mb-3">
                   <input
@@ -253,15 +253,19 @@ export function Chat() {
                       ))}
                     </div>
                   )}
+                  </div>
+                  )}
+
+                <div className="flex-1 overflow-y-auto mt-4">
+                  <ChatList
+                    contacts={contacts}
+                    selectedId={selectedContact?.id}
+                    onSelect={(c) => setSelectedContact(c)}
+                  />
                 </div>
-                <ChatList
-                  contacts={contacts}
-                  selectedId={selectedContact?.id}
-                  onSelect={(c) => setSelectedContact(c)}
-                />
               </div>
 
-              <div className="flex-1 p-6">
+              <div className="flex-1 p-6 flex flex-col h-full">
                 <ChatWindow
                   contact={selectedContact}
                   messages={chatMessages[selectedContact?.id] ?? []}
